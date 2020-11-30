@@ -9,7 +9,10 @@ public class WordFrequencyGame {
 
     public String getResult(String sentence) {
         try {
-            List<WordFrequency> wordFrequencyList = Arrays.stream(sentence.split(WHITE_SPACE_REGEX)).distinct().map(word -> new WordFrequency(word, Collections.frequency(Arrays.asList(sentence.split(WHITE_SPACE_REGEX)), word))).sorted((word1, word2) -> word2.getCount() - word1.getCount()).collect(Collectors.toList());
+            List<WordFrequency> wordFrequencyList = Arrays.stream(sentence.split(WHITE_SPACE_REGEX))
+                    .distinct().map(word -> new WordFrequency(word, Collections.frequency(Arrays.asList(sentence.split(WHITE_SPACE_REGEX)), word)))
+                    .sorted((word1, word2) -> word2.getCount() - word1.getCount())
+                    .collect(Collectors.toList());
 
             return buildResult(wordFrequencyList);
         } catch (Exception exception) {
@@ -19,10 +22,9 @@ public class WordFrequencyGame {
 
     private String buildResult(List<WordFrequency> wordFrequencyList) {
         StringJoiner result = new StringJoiner(NEXT_LINE);
-        for (WordFrequency word : wordFrequencyList) {
-            String wordFrequencyLine = String.format("%s %d", word.getWord(), word.getCount());
-            result.add(wordFrequencyLine);
-        }
+
+        wordFrequencyList.forEach(word -> result.add(String.format("%s %d", word.getWord(), word.getCount())));
+
         return result.toString();
     }
 }
