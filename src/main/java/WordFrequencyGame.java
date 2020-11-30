@@ -9,21 +9,22 @@ public class WordFrequencyGame {
 
     public String getResult(String sentence) {
         try {
-            //split the input string with 1 to n pieces of spaces
-            String[] words = sentence.split(WHITE_SPACE_REGEX);
-
-            List<WordFrequency> wordFrequencyList = Arrays.asList(words).stream().distinct().map(word -> new WordFrequency(word,Collections.frequency(Arrays.asList(words),word))).collect(Collectors.toList());
+            List<WordFrequency> wordFrequencyList = Arrays.asList(sentence.split(WHITE_SPACE_REGEX)).stream().distinct().map(word -> new WordFrequency(word,Collections.frequency(Arrays.asList(sentence.split(WHITE_SPACE_REGEX)),word))).collect(Collectors.toList());
 
             wordFrequencyList.sort((word1, word2) -> word2.getCount() - word1.getCount());
 
-            StringJoiner joiner = new StringJoiner(NEXT_LINE);
-            for (WordFrequency word : wordFrequencyList) {
-                String wordFrequencyLine = word.getWord() + " " + word.getCount();
-                joiner.add(wordFrequencyLine);
-            }
-            return joiner.toString();
+            return buildResult(wordFrequencyList);
         } catch (Exception exception) {
             return CALCULATE_ERROR;
         }
+    }
+
+    private String buildResult(List<WordFrequency> wordFrequencyList) {
+        StringJoiner joiner = new StringJoiner(NEXT_LINE);
+        for (WordFrequency word : wordFrequencyList) {
+            String wordFrequencyLine = word.getWord() + " " + word.getCount();
+            joiner.add(wordFrequencyLine);
+        }
+        return joiner.toString();
     }
 }
