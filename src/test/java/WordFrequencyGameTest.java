@@ -1,4 +1,5 @@
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import org.junit.jupiter.api.Test;
 
@@ -53,11 +54,20 @@ public class WordFrequencyGameTest {
     }
 
     @Test
-    private void validate_Input_words_process_to_expected_word(String inputStr, String expectResult) {
+    private void validate_Input_words_process_to_expected_word(String inputStr, String expectResult) throws CalculateErrorException {
         WordFrequencyGame game = new WordFrequencyGame();
         //When
         String result = game.getResult(inputStr);
         //Then
         assertEquals(expectResult, result);
+    }
+
+    @Test
+    public void should_throw_CalculateErrorException() {
+        WordFrequencyGame game = new WordFrequencyGame();
+        //When
+        CalculateErrorException calculateErrorException = assertThrows(CalculateErrorException.class, () -> game.getResult(null));
+        //Then
+        assertEquals("Calculate Error", calculateErrorException.getMessage());
     }
 }
