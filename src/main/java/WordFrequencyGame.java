@@ -16,6 +16,7 @@ public class WordFrequencyGame {
 
             return buildResult(wordFrequencyList);
         } catch (Exception exception) {
+            //todo add exception class
             return CALCULATE_ERROR;
         }
     }

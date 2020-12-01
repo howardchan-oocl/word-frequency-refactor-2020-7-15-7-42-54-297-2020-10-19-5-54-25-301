@@ -37,7 +37,7 @@ public class WordFrequencyGameTest {
     }
 
     @Test
-    public void should_pracess_two_same_words_with_sorted() throws Exception {
+    public void should_process_two_same_words_with_sorted() throws Exception {
         //Given
         String inputStr = "the the is";
         String expectResult = "the 2\nis 1";
@@ -52,11 +52,12 @@ public class WordFrequencyGameTest {
         validate_Input_words_process_to_expected_word(inputStr, expectResult);
     }
 
+    @Test
     private void validate_Input_words_process_to_expected_word(String inputStr, String expectResult) {
         WordFrequencyGame game = new WordFrequencyGame();
         //When
         String result = game.getResult(inputStr);
         //Then
-        assertEquals(result, expectResult);
+        assertEquals(expectResult, result);
     }
 }
